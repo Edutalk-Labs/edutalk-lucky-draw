@@ -1472,13 +1472,7 @@ function ExcelPlus(e) {
           var a = b === i;
           if (((t = er(t).href), w === t && (!r.history || a))) return l;
           var o = w && un(w) === un(t);
-          return (
-            (w = t),
-            (b = i),
-            !r.history || (o && a) ? (o || ($ = t), n ? c.replace(t) : o ? (c.hash = kt(t)) : (c.href = t), c.href !== t && ($ = t)) : (null),
-            $ && ($ = t),
-            l
-          );
+          return (w = t), (b = i), !r.history || (o && a) ? (o || ($ = t), n ? c.replace(t) : o ? (c.hash = kt(t)) : (c.href = t), c.href !== t && ($ = t)) : null, $ && ($ = t), l;
         }
         return $t($ || c.href);
       }),
@@ -9747,14 +9741,13 @@ function ExcelPlus(e) {
       .element(document.head)
       .prepend(
         '<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>'
-      )
+      ),
   /**
    * State-based routing for AngularJS
    * @version v0.3.2
    * @link http://angular-ui.github.com/
    * @license MIT License, http://www.opensource.org/licenses/MIT
-   */,
-  "undefined" != typeof module && "undefined" != typeof exports && module.exports === exports && (module.exports = "ui.router"),
+   */ "undefined" != typeof module && "undefined" != typeof exports && module.exports === exports && (module.exports = "ui.router"),
   (function (e, t, n) {
     "use strict";
     function r(e, t) {
@@ -34867,7 +34860,7 @@ var firebase = (function (e) {
         if ("undefined" == typeof firebase) throw Error("Cannot install Firebase Storage - be sure to load firebase-app.js first.");
         firebase.INTERNAL.registerService("storage", e, t, void 0, !0);
       })();
-  }.call(this)
+  }.call(this),
   /*!
    * AngularFire is the officially supported AngularJS binding for Firebase. Firebase
    * is a full backend so you don't need servers to build your Angular app. AngularFire
@@ -34878,8 +34871,7 @@ var firebase = (function (e) {
    * https://github.com/firebase/angularfire/
    * Date: 01/23/2017
    * License: MIT
-   */,
-  (function (e) {
+   */ (function (e) {
     "use strict";
     angular.module("firebase.utils", []),
       angular.module("firebase.config", []),
@@ -36025,7 +36017,7 @@ var firebase = (function (e) {
           return i;
         },
       ]);
-  })()
+  })(),
   /*!
    * jQuery JavaScript Library v3.4.1
    * https://jquery.com/
@@ -36038,8 +36030,7 @@ var firebase = (function (e) {
    * https://jquery.org/license
    *
    * Date: 2019-05-01T21:04Z
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "use strict";
     "object" == typeof module && "object" == typeof module.exports
       ? (module.exports = e.document
@@ -40426,16 +40417,34 @@ var _createClass = (function () {
           },
           {
             key: "shuffle",
-            value: function (e, t) {
+            value: function (shuffleParam, t) {
+              var _animate = (position) => {
+                this.$container.css("transform", "matrix(1, 0, 0, 1, 0, " + position + ")");
+              };
+
+              var resetPosition = (ee) => {
+                this.$container.toggleClass(s), _animate(shuffleParam === r ? this.direction.initial : ee), this.$container[0].offsetHeight, this.$container.toggleClass(s);
+              };
+
+              var raf = (param, n) => {
+                var i = new Date().getTime();
+                var a = function o() {
+                  var t = new Date().getTime(),
+                    a = t - i;
+                  n > a ? requestAnimationFrame(o) : param();
+                };
+                requestAnimationFrame(a);
+              };
+
               var n = this;
-              if (("function" == typeof e && (t = e), (this.running = !0), this.visible || this.settings.stopHidden !== !0)) {
-                var r = this.getDelayFromSpins(e);
+              if (("function" == typeof e && (t = shuffleParam), (this.running = !0), this.visible || this.settings.stopHidden !== !0)) {
+                var r = this.getDelayFromSpins(shuffleParam);
                 (this.delay = r),
-                  this._animate(this.direction.to),
-                  this.raf(function () {
+                  _animate(this.direction.to),
+                  raf(function () {
                     if (!n.stopping && n.running) {
-                      var r = e - 1;
-                      n.resetPosition(n.direction.first), 1 >= r ? n.stop(t) : n.shuffle(r, t);
+                      var r = shuffleParam - 1;
+                      resetPosition(n.direction.first), 1 >= r ? n.stop(t) : n.shuffle(r, t);
                     }
                   }, r);
               } else this.stop(t);
@@ -40620,13 +40629,12 @@ var _createClass = (function () {
       r
     );
   };
-})(jQuery, window, document)
-/*!
- * angular-translate - v2.18.2 - 2020-01-04
- *
- * Copyright (c) 2020 The angular-translate team, Pascal Precht; Licensed MIT
- */,
-  (function (e, t) {
+})(jQuery, window, document),
+  /*!
+   * angular-translate - v2.18.2 - 2020-01-04
+   *
+   * Copyright (c) 2020 The angular-translate team, Pascal Precht; Licensed MIT
+   */ (function (e, t) {
     "function" == typeof define && define.amd
       ? define([], function () {
           return t();
@@ -44514,13 +44522,12 @@ var _createClass = (function () {
           return t(e);
         })
       : t(e.angular);
-  })(window)
+  })(window),
   /**
    * @license AngularJS v1.7.9
    * (c) 2010-2018 Google, Inc. http://angularjs.org
    * License: MIT
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "use strict";
     function n(e, t, n) {
       if (!e) throw de("areq", "Argument '{0}' is {1}", t || "?", n || "required");
@@ -48045,13 +48052,12 @@ var ngFileUpload = angular.module("ngFileUpload", []);
         i
       );
     },
-  ])
+  ]),
   /**
    * @license AngularJS v1.7.9
    * (c) 2010-2018 Google, Inc. http://angularjs.org
    * License: MIT
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "use strict";
     function n() {
       function n(e, t) {
@@ -48521,14 +48527,13 @@ var ngFileUpload = angular.module("ngFileUpload", []);
           };
         },
       ]);
-  })(window, document)
+  })(window, document),
   /*!
    * angular-hotkeys v1.7.0
    * https://chieffancypants.github.io/angular-hotkeys
    * Copyright (c) 2016 Wes Cruver
    * License: MIT
-   */,
-  /*
+   */ /*
    * angular-hotkeys
    *
    * Automatic keyboard shortcuts for your angular apps
@@ -48744,7 +48749,7 @@ var ngFileUpload = angular.module("ngFileUpload", []);
         },
       ])
       .run(["hotkeys", function (e) {}]);
-  })()
+  })(),
   /**
    * Copyright 2015 Craig Campbell
    *
@@ -48765,8 +48770,7 @@ var ngFileUpload = angular.module("ngFileUpload", []);
    *
    * @version 1.5.2
    * @url craig.is/killing/mice
-   */,
-  (function (e, t, n) {
+   */ (function (e, t, n) {
     function r(e, t, n) {
       return e.addEventListener ? void e.addEventListener(t, n, !1) : void e.attachEvent("on" + t, n);
     }
@@ -49004,13 +49008,12 @@ var ngFileUpload = angular.module("ngFileUpload", []);
         define(function () {
           return g;
         });
-  })(window, document)
+  })(window, document),
   /**
    * @license AngularJS v1.7.9
    * (c) 2010-2018 Google, Inc. http://angularjs.org
    * License: MIT
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "use strict";
     function n(e, n, r) {
       function i(e, r, i) {
@@ -49073,13 +49076,12 @@ var ngFileUpload = angular.module("ngFileUpload", []);
       t.module("ngCookies").provider("$$cookieWriter", function () {
         this.$get = n;
       });
-  })(window, window.angular)
+  })(window, window.angular),
   /*!
    * angular-translate - v2.18.2 - 2020-01-04
    *
    * Copyright (c) 2020 The angular-translate team, Pascal Precht; Licensed MIT
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "function" == typeof define && define.amd
       ? define([], function () {
           return t();
@@ -49126,13 +49128,12 @@ var ngFileUpload = angular.module("ngFileUpload", []);
       return i;
     }
     return (e.$inject = ["$injector"]), angular.module("pascalprecht.translate").factory("$translateCookieStorage", e), (e.displayName = "$translateCookieStorage"), "pascalprecht.translate";
-  })
+  }),
   /*!
    * angular-translate - v2.18.2 - 2020-01-04
    *
    * Copyright (c) 2020 The angular-translate team, Pascal Precht; Licensed MIT
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "function" == typeof define && define.amd
       ? define([], function () {
           return t();
@@ -49175,14 +49176,13 @@ var ngFileUpload = angular.module("ngFileUpload", []);
       (e.displayName = "$translateLocalStorageFactory"),
       "pascalprecht.translate"
     );
-  })
+  }),
   /**
    * Bunch of useful filters for angularJS(with no external dependencies!)
    * @version v0.5.17 - 2017-09-22 * @link https://github.com/a8m/angular-filter
    * @author Ariel Mashraki <ariel@mashraki.co.il>
    * @license MIT License, http://www.opensource.org/licenses/MIT
-   */,
-  (function (e, t, n) {
+   */ (function (e, t, n) {
     "use strict";
     function r(e) {
       return D(e)
@@ -49397,26 +49397,24 @@ var ngFileUpload = angular.module("ngFileUpload", []);
             return t.equals(e, n);
           };
         }),
-      t
-        .module("a8m.conditions", [])
-        .filter({
-          isGreaterThan: f,
-          ">": f,
-          isGreaterThanOrEqualTo: h,
-          ">=": h,
-          isLessThan: d,
-          "<": d,
-          isLessThanOrEqualTo: p,
-          "<=": p,
-          isEqualTo: g,
-          "==": g,
-          isNotEqualTo: m,
-          "!=": m,
-          isIdenticalTo: v,
-          "===": v,
-          isNotIdenticalTo: b,
-          "!==": b,
-        }),
+      t.module("a8m.conditions", []).filter({
+        isGreaterThan: f,
+        ">": f,
+        isGreaterThanOrEqualTo: h,
+        ">=": h,
+        isLessThan: d,
+        "<": d,
+        isLessThanOrEqualTo: p,
+        "<=": p,
+        isEqualTo: g,
+        "==": g,
+        isNotEqualTo: m,
+        "!=": m,
+        isIdenticalTo: v,
+        "===": v,
+        isNotIdenticalTo: b,
+        "!==": b,
+      }),
       t.module("a8m.is-null", []).filter("isNull", function () {
         return function (e) {
           return i(e);
@@ -50979,7 +50977,7 @@ var ngFileUpload = angular.module("ngFileUpload", []);
           return t;
         })
       : (window.tinycolor = t);
-  })(Math)
+  })(Math),
   /*!
    * angularjs-color-picker v2.7.2
    * https://github.com/ruhley/angular-color-picker/
@@ -50988,8 +50986,7 @@ var ngFileUpload = angular.module("ngFileUpload", []);
    *
    * 2016-12-23 14:00:20
    *
-   */,
-  (function (e, t) {
+   */ (function (e, t) {
     "object" == typeof exports && "undefined" != typeof module
       ? (module.exports = t(require("tinycolor2")))
       : "function" == typeof define && define.amd
