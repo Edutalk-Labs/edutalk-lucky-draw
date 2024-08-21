@@ -113,8 +113,7 @@ export default {
 
           element.style.transition = "none";
           element.style.transform = `translateY(0)`;
-          let position = rect.height * 10.0 / 11.0;
-          let blur = 0;
+
           setTimeout(() => {
             if (this.spinCounts[index] == 0) {
               this.spinTimes[index] = this.getRandomInRange(0.8, 1.0);
@@ -122,20 +121,20 @@ export default {
             else {
               if (this.spinCounts[index] < this.maxSpins - 1) {
                 this.spinTimes[index] = 1.8 - Math.abs(this.spinTimes[index]);
-                blur = 3 * this.spinTimes[index];
               } else {
                 this.spinTimes[index] = this.getRandomInRange(1.5, 1.8);
-                blur = 0;
               }
             }
-
-            if (this.spinCounts[index] == this.maxSpins) {
-              position = rect.height * 9.0 / 11.0;
-            }
+            // Chi blur luc tang toc vong quay
+            const blur = (this.spinCounts[index] >= this.maxSpins - 1 || this.spinCounts[index] == 0) ? 0 : 3 * this.spinTimes[index];
+            // 10/11 Lay vi tri cuoi cung
+            // 9/11 Lay vi tri so result da push
+            const position = (this.spinCounts[index] == this.maxSpins ? 9 : 10) * rect.height / 11.0;
             setTimeout(() => element.style.filter = `blur(${blur}px)`, 100);
             element.style.transition = `all ${this.spinTimes[index]}s linear`;
             element.style.transform = `translateY(${-position}px)`;
 
+            // Mo audio cho 1 o
             if (index == 0) {
               this.playSpinAudio(this.spinTimes[index] * 1000);
             }
