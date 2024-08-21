@@ -126,7 +126,7 @@ export default {
               }
             }
             // Chi blur luc tang toc vong quay
-            const blur = (this.spinCounts[index] >= this.maxSpins - 1 || this.spinCounts[index] == 0) ? 0 : 3 * this.spinTimes[index];
+            const blur = (this.spinCounts[index] >= this.maxSpins - 1 || this.spinCounts[index] == 0) ? 0 : 2  / this.spinTimes[index];
             // 10/11 Lay vi tri cuoi cung
             // 9/11 Lay vi tri so result da push
             const position = (this.spinCounts[index] == this.maxSpins ? 9 : 10) * rect.height / 11.0;
