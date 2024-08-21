@@ -1,6 +1,6 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld result="123456" />
+  <HelloWorld :result="123456" :maxSpins="6"  />
 </template>
 
 <script>

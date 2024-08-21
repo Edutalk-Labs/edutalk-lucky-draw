@@ -26,9 +26,10 @@
     <button @click="spin" v-if="!isRuning">Start Draw</button> <button v-if="isCompleted" @click="confirmDraw">Xac
       nhan</button>
   </div>
-</template> 
+</template>
 
-<script> 
+<script>
+import { playAudioStart, playAudioFinish, playAudioConfirm, playAudioStartSpin } from '../services/audioService'
 export default {
   name: 'HelloWorld',
   props: {
@@ -62,6 +63,7 @@ export default {
   },
   methods: {
     confirmDraw() {
+      playAudioConfirm();
       this.isRuning = false;
       this.isCompleted = false;
       this.isFlipping = true;
@@ -93,9 +95,15 @@ export default {
       return array;
     },
     spin() {
+      playAudioStart();
       this.isRuning = true;
       this.isFlipping = false;
       setTimeout(() => this.startLoop(), 10)
+    },
+    playSpinAudio(time) {  
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => playAudioStartSpin(), i * time / 10.0);
+      }
     },
     startLoop() {
       this.spinCounts = [0, 0, 0, 0, 0, 0];
@@ -103,6 +111,7 @@ export default {
         const element = this.$refs['slotContainer' + index][0];
         const rect = element.getBoundingClientRect();
         const rotate = () => {
+
           element.style.transition = "none";
           element.style.transform = `translateY(0)`;
           let position = rect.height * 10.0 / 11.0;
@@ -127,6 +136,10 @@ export default {
             setTimeout(() => element.style.filter = `blur(${blur}px)`, 100);
             element.style.transition = `all ${this.spinTimes[index]}s linear`;
             element.style.transform = `translateY(${-position}px)`;
+
+            if (index == 0) {
+              this.playSpinAudio(this.spinTimes[index] * 1000);
+            }
           });
         };
 
@@ -134,6 +147,9 @@ export default {
           this.spinCounts[index]++;
           if (this.spinCounts[index] > this.maxSpins) {
             this.isCompleted = true;
+            if (index == 0) {
+              playAudioFinish();
+            }
             return;
           }
           rotate();
