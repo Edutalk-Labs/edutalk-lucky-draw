@@ -26,19 +26,18 @@
     <button @click="spin" v-if="!isRuning">Start Draw</button> <button v-if="isCompleted" @click="confirmDraw">Xac
       nhan</button>
   </div>
-</template>
+</template> 
 
-
-<script>
-
-
+<script> 
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    result: Number,
+    maxSpins: {
+      default: 5
+    }
   },
   mounted() {
-    this.characters = this.machineSlots.map((e, i) => this.generateRandomCharacters(i));
   },
   data() {
     return {
@@ -46,14 +45,21 @@ export default {
       isRuning: false,
       isCompleted: false,
       machineSlots: [1, 2, 3, 4, 5, 6],
-      characters: [],
       spinCounts: [0, 0, 0, 0, 0, 0],
-      spinTimes: [1, 1, 1, 1, 1, 1],
-      maxSpins: 5, // Số vòng quay tối đa trước khi giảm tốc độ 
-      finalResult: [7, 2, 9, 3, 1, 4] // Tốc độ tăng thêm sau mỗi lần quay khi đã vượt maxSpins
+      spinTimes: [1, 1, 1, 1, 1, 1]
     };
   },
-
+  computed: {
+    finalResult() {
+      if (!this.result) {
+        return [];
+      }
+      return this.result.toString().split('').map(d => parseInt(d));
+    },
+    characters() {
+      return this.machineSlots.map((e, i) => this.generateRandomCharacters(this.finalResult[i]));
+    }
+  },
   methods: {
     confirmDraw() {
       this.isRuning = false;
@@ -66,24 +72,19 @@ export default {
     getRandomInRange(min, max) {
       return Math.random() * (max - min) + min;
     },
-    generateRandomCharacters(slotIndex) {
+    generateRandomCharacters(finalResult) {
       const possibleChars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
       const characters = this.shuffleArray(possibleChars);
-
-      // Đảm bảo rằng số cuối cùng là số mong muốn
-      const res = this.finalResult[slotIndex];
-      const resultIndex = characters.indexOf(res);
-
+      const resultIndex = characters.indexOf(finalResult);
       // Đưa số mong muốn lên vị trí cuối cùng
       if (resultIndex !== -1) {
         characters.splice(resultIndex, 1);
-        characters.push(res);
+        characters.push(finalResult);
       }
-
+      console.log(finalResult);
       characters.push(characters[0]); // Lặp lại số đầu để tạo cảm giác liên tục
       return characters;
     },
-
     shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
