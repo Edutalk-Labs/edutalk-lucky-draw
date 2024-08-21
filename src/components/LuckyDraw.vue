@@ -4,8 +4,7 @@
       <ul class="slots">
         <li class="slot" v-for="(e, index) in machineSlots" :key="`${index}-${e}`" :class="'slot-1of6'">
           <div v-if="isRuning" class="slotMachineContainer" :ref="'slotContainer' + index">
-            <div class="slot-item" v-for="(e3, i) in characters[index]" :key="`${index}-${i}`"
-              :ref="'slotItem-' + index + '-' + i">
+            <div class="slot-item" v-for="(e3, i) in characters[index]" :key="`${index}-${i}`">
               <div class="slot-number">
                 <span>{{ e3 }}</span>
               </div>
@@ -100,7 +99,7 @@ export default {
       this.isFlipping = false;
       setTimeout(() => this.startLoop(), 10)
     },
-    playSpinAudio(time) {  
+    playSpinAudio(time) {
       for (let i = 0; i < 10; i++) {
         setTimeout(() => playAudioStartSpin(), i * time / 10.0);
       }
