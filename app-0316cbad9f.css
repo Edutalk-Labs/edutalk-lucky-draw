@@ -2072,52 +2072,7 @@ span.toggleDel a {
     width: 150px;
   }
 }
-.subscription {
-  background: #f3f3f3;
-  border: 1px solid #eaeaea;
-  text-align: center;
-  padding: 20px 20px 25px;
-  margin-bottom: 6px;
-}
-.subscription p {
-  margin-bottom: 12px;
-}
-.subscription h6 {
-  font-weight: 400;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-.subscription h6 .time {
-  font-weight: 700;
-}
-.subscription .subscription-price {
-  font-size: 30px;
-  font-weight: 700;
-  margin: 12px 0;
-}
-.subscription .btn-alt {
-  padding: 16px 46px;
-  margin-bottom: 22px;
-  letter-spacing: 5px;
-  font-size: 17px;
-}
-.subscription-complete {
-  margin: 16px 6px 0 0;
-  padding: 14px 20px 17px;
-  font-size: 14px;
-}
-.subscription-complete h6 {
-  margin-bottom: 22px;
-}
-.subscription-complete img {
-  margin-bottom: 10px;
-}
-.subscription-complete p {
-  line-height: 1.71;
-}
-.subscription-complete .btn-alt {
-  margin-top: 21px;
-}
+ 
 @media (max-width: 479px) {
   .subscription {
     padding: 15px 10px;
