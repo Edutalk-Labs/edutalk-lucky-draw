@@ -35,6 +35,9 @@ export default {
     result: Number,
     maxSpins: {
       default: 5
+    },
+    spinCount: {
+      default: 7
     }
   },
   mounted() {
@@ -44,23 +47,35 @@ export default {
       isFlipping: false,
       isRuning: false,
       isCompleted: false,
-      machineSlots: [1, 2, 3, 4, 5, 6],
-      spinCounts: [0, 0, 0, 0, 0, 0],
-      spinTimes: [1, 1, 1, 1, 1, 1]
+      spinCounts: [],
+      spinTimes: []
     };
   },
+  watch: {
+    spinCount() {
+      this.resetSpinCounts();
+      this.spinTimes = Array.from({ length: this.spinCount }, () => 1)
+    }
+  },
   computed: {
+
+    machineSlots() {
+      return Array.from({ length: this.spinCount }, (_, i) => i)
+    },
     finalResult() {
       if (!this.result) {
         return [];
-      }
-      return this.result.toString().split('').map(d => parseInt(d));
+      } 
+      return this.result.toString().padStart(this.spinCount, "0").split('').map(d => parseInt(d));
     },
     characters() {
       return this.machineSlots.map((e, i) => this.generateRandomCharacters(this.finalResult[i]));
     }
   },
   methods: {
+    resetSpinCounts() {
+      this.spinCounts = Array.from({ length: this.spinCount }, () => 0)
+    },
     confirmDraw() {
       playAudioConfirm();
       this.isRuning = false;
@@ -105,7 +120,7 @@ export default {
       }
     },
     startLoop() {
-      this.spinCounts = [0, 0, 0, 0, 0, 0];
+      this.resetSpinCounts();
       this.machineSlots.forEach((slot, index) => {
         const element = this.$refs['slotContainer' + index][0];
         const rect = element.getBoundingClientRect();
@@ -126,7 +141,7 @@ export default {
               }
             }
             // Chi blur luc tang toc vong quay
-            const blur = (this.spinCounts[index] >= this.maxSpins - 1 || this.spinCounts[index] == 0) ? 0 : 2  / this.spinTimes[index];
+            const blur = (this.spinCounts[index] >= this.maxSpins - 1 || this.spinCounts[index] == 0) ? 0 : 2 / this.spinTimes[index];
             // 10/11 Lay vi tri cuoi cung
             // 9/11 Lay vi tri so result da push
             const position = (this.spinCounts[index] == this.maxSpins ? 9 : 10) * rect.height / 11.0;
