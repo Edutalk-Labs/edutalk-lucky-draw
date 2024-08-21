@@ -1,15 +1,15 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld :result="123456" :maxSpins="6"  />
+  <LuckyDraw :result="123456" :maxSpins="6"  />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LuckyDraw from './components/LuckyDraw.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    LuckyDraw
   }
 }
 </script>
